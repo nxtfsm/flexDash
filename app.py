@@ -6,7 +6,7 @@ from flask_socketio import SocketIO, emit
 async_mode = None
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+
 
 socketio = SocketIO(app, async_mode=async_mode)
 
@@ -27,7 +27,7 @@ def index():
 
 @app.route('/grid')
 def grid():
-    return render_template('grid.html', title="Griddy Dash!", next_dash="test-dash-panel.html", async_mode=socketio.async_mode)
+    return render_template('grid.html', title="Griddy Dash!", async_mode=socketio.async_mode)
 
 @app.route('/block')
 def test_block():

@@ -2,3 +2,4 @@ FLASK_APP=app.py
 FLASK_ENV=development
 FLASK_STATIC_URL_PATH=""
 FLASK_STATIC_FOLDER=static
+FLASK_SECRET_KEY="secret!"
