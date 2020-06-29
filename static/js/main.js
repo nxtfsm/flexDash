@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready( () => {
   elementLoader();
 
   // Using empty namespace instead of '/test'
@@ -24,13 +24,13 @@ $(document).ready(function() {
   });
 });
 
-function elementLoader() {
+let elementLoader = () => {
   $(document).on('click', '.navBar#topNavBar > button', function () {
     pageName = this.innerHTML;
 
-    queueDash(pageName)
+    loadNewDash(pageName)
     updateActiveClassTo(this);
-    })
+  })
 
   // make dash-panel-container clickable for testing
   /*$(document).on('click', 'div.dash-panel-container', function() {
@@ -44,25 +44,25 @@ function elementLoader() {
   });
 }
 
-let queueDash = dashPaneltoQueue => loadDashHTML("/" + dashPaneltoQueue)
+let loadNewDash = dashPaneltoQueue => loadDashHTML("/" + dashPaneltoQueue)
 
-function loadDashHTML(fromRoute) {
+let loadDashHTML = fromRoute => {
   fetch(fromRoute)
     .then( response => response.text() )
       .then( (data) => {
         data = data.trim();
         placeToWrite = document.querySelector('.dash-panel.hidden');
         placeToWrite.innerHTML = data;
-       })
+      })
         .then(flipDashView());
      };
 
-function updateActiveClassTo(to_this) {
+let updateActiveClassTo = to_this => {
   clearActiveClass();
   toggleActiveClass(to_this);
 }
 
-function clearActiveClass() {
+let clearActiveClass = () => {
   // Removes 'active' class tag from *all* elements where currently set
   let currentActives = document.querySelectorAll('.active');
   Array.from(currentActives).forEach(function(currentActive) {
@@ -74,8 +74,7 @@ let toggleActiveClass = element => element.classList.toggle('active')
 
 let flipDashView = () => () => containerFlipper(document.querySelector("#main-dash-container"), "Y")
 
-
-function containerFlipper(outerContainer, axis) {
+let containerFlipper= (outerContainer, axis) => {
   // Flipper transition for container level elements (cntnr - innercntnr -fContent, bContent-)
   let innerContainer = outerContainer.children[0];
   var facesToChange = Array(innerContainer.children[0],innerContainer.children[1]);
