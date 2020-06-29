@@ -27,7 +27,8 @@ $(document).ready(function() {
 function elementLoader() {
   $(document).on('click', '.navBar#topNavBar > button', function () {
     pageName = this.innerHTML;
-    queueDash(pageName);
+
+    queueDash(pageName)
     updateActiveClassTo(this);
     })
 
@@ -43,12 +44,7 @@ function elementLoader() {
   });
 }
 
-function queueDash(dashPaneltoQueue) {
-  var route = "/" + dashPaneltoQueue;
-  loadDashHTML(route)
-};
-
-
+let queueDash = dashPaneltoQueue => loadDashHTML("/" + dashPaneltoQueue)
 
 function loadDashHTML(fromRoute) {
   fetch(fromRoute)
@@ -63,27 +59,21 @@ function loadDashHTML(fromRoute) {
 
 function updateActiveClassTo(to_this) {
   clearActiveClass();
-  addActiveClass(to_this);
+  toggleActiveClass(to_this);
 }
 
 function clearActiveClass() {
   // Removes 'active' class tag from *all* elements where currently set
   let currentActives = document.querySelectorAll('.active');
   Array.from(currentActives).forEach(function(currentActive) {
-    currentActive.classList.toggle('active');
+    toggleActiveClass(currentActive);
   });
 };
 
-function addActiveClass(element) {
-  // Adds 'active' class to DOM element regerenced by arg 'element'
-  element.classList.toggle('active');
-};
+let toggleActiveClass = element => element.classList.toggle('active')
 
-function flipDashView() {
-  return function () {
-    containerFlipper(document.querySelector("#main-dash-container"), "Y")
-  }
-}
+let flipDashView = () => () => containerFlipper(document.querySelector("#main-dash-container"), "Y")
+
 
 function containerFlipper(outerContainer, axis) {
   // Flipper transition for container level elements (cntnr - innercntnr -fContent, bContent-)

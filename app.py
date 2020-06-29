@@ -8,8 +8,6 @@ async_mode = None
 app = Flask(__name__)
 app.config.from_object('config.Config')
 
-
-
 socketio = SocketIO(app, async_mode=async_mode)
 
 thread = None
