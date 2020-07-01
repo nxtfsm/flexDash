@@ -37,6 +37,13 @@ let elementLoader = () => {
     flipAxis = "Y";
     containerFlipper(this, flipAxis);
   });*/
+  $(document).on('mouseenter', 'div.card-container', function() {
+    cards = this.getElementsByClassName('card')
+    Array.from(cards).forEach(function(card) {
+      toggleClass(card, 'highlight')
+      setTimeout(function() {toggleClass(card, 'highlight')}, 500)
+    })
+  })
 
   $(document).on('click', 'div.card-container', function() {
     flipAxis = "X";
@@ -51,30 +58,25 @@ let loadDashHTML = fromRoute => {
     .then( response => response.text() )
       .then( (data) => {
         data = data.trim();
-        placeToWrite = document.querySelector('.dash-panel.hidden');
-        placeToWrite.innerHTML = data;
+        document.querySelector('.dash-panel.hidden').innerHTML = data;
       })
         .then(flipDashView());
      };
 
-let updateActiveClassTo = to_this => {
-  clearActiveClass();
-  toggleActiveClass(to_this);
-}
+let updateActiveClassTo = to_this => { clearActiveClass(), toggleClass(to_this, 'active') }
 
 let clearActiveClass = () => {
   // Removes 'active' class tag from *all* elements where currently set
-  let currentActives = document.querySelectorAll('.active');
-  Array.from(currentActives).forEach(function(currentActive) {
-    toggleActiveClass(currentActive);
+  Array.from(document.querySelectorAll('.active')).forEach((currentActive) => {
+    toggleClass(currentActive, 'active')
   });
-};
+}
 
-let toggleActiveClass = element => element.classList.toggle('active')
+let toggleClass = (element, className) => element.classList.toggle(className)
 
 let flipDashView = () => () => containerFlipper(document.querySelector("#main-dash-container"), "Y")
 
-let containerFlipper= (outerContainer, axis) => {
+let containerFlipper = (outerContainer, axis) => {
   // Flipper transition for container level elements (cntnr - innercntnr -fContent, bContent-)
   let innerContainer = outerContainer.children[0];
   var facesToChange = Array(innerContainer.children[0],innerContainer.children[1]);

@@ -9,4 +9,4 @@ python-engineio
 python-socketio
 six==1.11.0
 Werkzeug==0.15.3
-python-dotenv=0.13.0
+python-dotenv==0.13.0
